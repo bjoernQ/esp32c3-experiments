@@ -10,11 +10,10 @@ extern "C" {
 
 /// Naive gpio output implementation
 pub struct GpioOutput {
-    index: u32
+    index: u32,
 }
 
 impl GpioOutput {
-
     const GPIO_BASE: u32 = 0x60004000;
 
     /// GPIO output enable reg
@@ -25,10 +24,9 @@ impl GpioOutput {
     /// GPIO output clear register
     const GPIO_OUT_W1TC_REG: u32 = Self::GPIO_BASE + 0x000C;
 
-
     /// GPIO function mode
     const GPIO_FUNCX_OUT_BASE: u32 = Self::GPIO_BASE + 0x0554;
-    
+
     pub fn new(gpio: u32) -> Self {
         let funcx_sel: u32 = Self::GPIO_FUNCX_OUT_BASE + (gpio * 4);
         // configure the pin as an output
@@ -38,9 +36,7 @@ impl GpioOutput {
             core::ptr::write_volatile(funcx_sel as *mut _, 0x80);
         }
 
-        Self {
-            index: gpio
-        }
+        Self { index: gpio }
     }
 }
 
@@ -58,15 +54,13 @@ impl embedded_hal::digital::v2::OutputPin for GpioOutput {
     }
 }
 
-pub struct EtsTimer{
-    delay: u32
+pub struct EtsTimer {
+    delay: u32,
 }
 
 impl EtsTimer {
     pub fn new(delay_us: u32) -> Self {
-        Self {
-            delay: delay_us,
-        }
+        Self { delay: delay_us }
     }
 }
 
@@ -75,7 +69,8 @@ impl embedded_hal::timer::CountDown for EtsTimer {
 
     fn start<T>(&mut self, count: T)
     where
-        T: Into<Self::Time> {
+        T: Into<Self::Time>,
+    {
         self.delay = count.into();
     }
 
@@ -122,4 +117,3 @@ pub fn disable_wdts() {
         core::ptr::write_volatile(0x600080a8 as *mut _, 0u32); // enable write protect
     }
 }
-

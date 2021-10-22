@@ -21,6 +21,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "bare-metal"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f8fe8f5a8a398345e52358e18ff07cc17a568fbca5c6f73873d3a62056309603"
+
+[[package]]
 name = "bit_field"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -41,9 +47,8 @@ name = "esp32c3"
 version = "0.1.0"
 dependencies = [
  "embedded-hal",
- "nb 0.1.3",
- "panic-halt",
- "riscv",
+ "nb 1.0.0",
+ "riscv 0.7.0",
  "riscv-rt",
  "void",
 ]
@@ -74,12 +79,6 @@ name = "nb"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "546c37ac5d9e56f55e73b677106873d9d9f5190605e41a856503623648488cae"
-
-[[package]]
-name = "panic-halt"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de96540e0ebde571dc55c73d60ef407c653844e6f9a1e2fdbd40c07b9252d812"
 
 [[package]]
 name = "ppv-lite86"
@@ -180,7 +179,18 @@ version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2f0b705d428e9d0f78e2bb73093887ee58a83c9688de3faedbb4c0631c4618e"
 dependencies = [
- "bare-metal",
+ "bare-metal 0.2.5",
+ "bit_field",
+ "riscv-target",
+]
+
+[[package]]
+name = "riscv"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6907ccdd7a31012b70faf2af85cd9e5ba97657cc3987c4f13f8e4d2c2a088aba"
+dependencies = [
+ "bare-metal 1.0.0",
  "bit_field",
  "riscv-target",
 ]
@@ -191,7 +201,7 @@ version = "0.8.0"
 source = "git+https://github.com/MabezDev/riscv-rt?rev=6b55e4aa3895924e31bcd151f2f0ab840836fa07#6b55e4aa3895924e31bcd151f2f0ab840836fa07"
 dependencies = [
  "r0",
- "riscv",
+ "riscv 0.6.0",
  "riscv-rt-macros",
  "riscv-target",
 ]
